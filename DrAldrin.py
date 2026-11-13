@@ -15,18 +15,20 @@ white = (20,20,20)
 indigo = (255,0,149)
 violet = (115,0,255)
 
-
+#set station speed. define rainbow of speeds
 speeds = [red,orange,gold,green,blue,indigo,violet]
 sspeed = 0
 sticks = sspeed
 sloc = 0
 
+#display station, ship. set location, speed for station
 station = True
 stloc = random.randrange(10)
 stspeed = random.randrange(4) + 1
 stticks = stspeed
 shipflying = True
 
+#victory colors
 def victory():
     for i in range(50):
         cp.pixels[random.randrange(10)]=random.choice(speeds)
@@ -60,12 +62,13 @@ while True:
         if sspeed<0:
             sspeed = 0
     if val == 3:
+        #reset game
         station = True
         shipflying = True
         stloc = random.randrange(10)
         stspeed = random.randrange(4) + 1
         stticks = stspeed
-        sloc = 0
+        sloc = (stloc +1) %10
         sticks = 0
         sspeed=0
         
@@ -86,6 +89,7 @@ while True:
             cp.pixels[stloc] = blank
             stloc = (stloc+1)%10
     if (stspeed == sspeed) and (stloc == sloc):
+        #ship docked.  Play tune, show victory colors
         sttune(1)
         sloc=0
         stloc=1
@@ -95,3 +99,4 @@ while True:
         victory()
         
  
+
