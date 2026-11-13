@@ -3,7 +3,7 @@ Orbital Mechanics on the Circuit Playground
 
 
 
-* DrAldrin.js MakeCode version
+* DrAldrin.js MakeCode version (also at https://makecode.com/_iRe1XehdvVHu)
 
 * DrAldrin.py - CircuitPython version, copy to code.py on CPX
 * bach.py - music routines, copy to CPX
