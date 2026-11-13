@@ -1,6 +1,7 @@
 from adafruit_circuitplayground import cp
 import time
 import random
+from bach import *
 #Define colors
 pink = (12,10,12)
 gold = (50, 40, 5)
@@ -20,17 +21,26 @@ sspeed = 0
 sticks = sspeed
 sloc = 0
 
-station = False
+station = True
 stloc = random.randrange(10)
-stspeed = random.randrange(3,5,1)
+stspeed = random.randrange(4) + 1
 stticks = stspeed
+shipflying = True
 
+def victory():
+    for i in range(50):
+        cp.pixels[random.randrange(10)]=random.choice(speeds)
+        time.sleep(.1)
+    cp.pixels.fill((0,0,0))
 
+swtune(1)
 
 while True:
 
 
     val = 0
+    if not(shipflying):
+        cp.pixels.fill((0,0,0))
 
     if cp.button_a and cp.button_b:
         val = 3
@@ -50,15 +60,24 @@ while True:
         if sspeed<0:
             sspeed = 0
     if val == 3:
-        station = not(station)
-
-    cp.pixels[sloc] = speeds[sspeed]
+        station = True
+        shipflying = True
+        stloc = random.randrange(10)
+        stspeed = random.randrange(4) + 1
+        stticks = stspeed
+        sloc = 0
+        sticks = 0
+        sspeed=0
+        
+        
     time.sleep(.1)
-    sticks = sticks - 1
-    if sticks <= 0 :
-        cp.pixels[sloc] = blank
-        sticks = sspeed
-        sloc = (sloc+1)%10
+    if shipflying:
+        cp.pixels[sloc] = speeds[sspeed]
+        sticks = sticks - 1
+        if sticks <= 0 :
+            cp.pixels[sloc] = blank
+            sticks = sspeed
+            sloc = (sloc+1)%10
     if station:
         cp.pixels[stloc]=speeds[stspeed]
         stticks = stticks - 1
@@ -66,3 +85,13 @@ while True:
             stticks = stspeed
             cp.pixels[stloc] = blank
             stloc = (stloc+1)%10
+    if (stspeed == sspeed) and (stloc == sloc):
+        sttune(1)
+        sloc=0
+        stloc=1
+        sspeed = 0
+        station = False
+        shipflying = False
+        victory()
+        
+ 
