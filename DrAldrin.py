@@ -56,13 +56,19 @@ while True:
     if val == 1:
         sspeed = (sspeed+1)
         if sspeed > 6:
-            sspeed = 6
+            sspeed = 6        
+        else:
+            print("moved to higher orbit")
+            
     if val == 2:
         sspeed = (sspeed-1)
         if sspeed<0:
             sspeed = 0
+        else:
+            print("moved to lower orbit")
     if val == 3:
         #reset game
+        print ("relaunch")
         station = True
         shipflying = True
         stloc = random.randrange(10)
@@ -88,8 +94,10 @@ while True:
             stticks = stspeed
             cp.pixels[stloc] = blank
             stloc = (stloc+1)%10
+
     if (stspeed == sspeed) and (stloc == sloc):
         #ship docked.  Play tune, show victory colors
+        print("Docked!!")
         sttune(1)
         sloc=0
         stloc=1
@@ -99,4 +107,5 @@ while True:
         victory()
         
  
+
 
